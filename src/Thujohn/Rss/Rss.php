@@ -94,7 +94,18 @@ class Rss {
 
 		foreach ($this->channel as $kC => $vC)
 		{
-			$xml->channel->addChild($kC, $vC);
+			if (is_array($vC)) // add support for 1 more level, eg. the image node
+			{
+				$xml->channel->addChild($kC);
+				foreach ($vC as $kkC => $vvC)
+				{
+					$xml->channel->$kC->addChild($kkC, $vvC);
+				}
+			}
+			else
+			{
+				$xml->channel->addChild($kC, $vC);
+			}
 		}
 
 		$items = $this->limit > 0 ? array_slice($this->items, 0, $this->limit) : $this->items;
