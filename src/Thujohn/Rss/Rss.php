@@ -17,6 +17,12 @@ class Rss {
 		return $this;
 	}
 
+	public function clearFeed()
+	{
+		$this->items = array();
+		$this->channel = array();
+	}
+
 	/**
 	 * Parameters :
 	 * - title (required)
